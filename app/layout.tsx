@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
+import logo from "./assets/logo.svg";
+import Image from "next/image";
+
 export const metadata: Metadata = {
   title: "Ignite Shop",
 };
@@ -20,9 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} antialiased text-zinc-100 bg-zinc-900`}
+        className={`${roboto.className} bg-zinc-900 text-zinc-100 antialiased`}
       >
-        {children}
+        <div className="flex min-h-screen flex-col items-start justify-center">
+          <header className="mx-auto w-full max-w-7xl py-8">
+            <Image src={logo} alt="" />
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );
