@@ -3,8 +3,6 @@ import { stripe } from "@/lib/stripe";
 import Image from "next/image";
 import Stripe from "stripe";
 
-export const revalidate = 24 * 60; // seconds
-
 export default async function Home() {
   const { data } = await stripe.products.list({
     expand: ["data.default_price"],
