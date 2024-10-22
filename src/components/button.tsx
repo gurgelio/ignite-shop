@@ -6,9 +6,10 @@ export interface ButtonProps extends PropsWithChildren {
 }
 
 export function Button({ children, variant, type = "button" }: ButtonProps) {
+  console.log(variant);
   return (
     <button
-      className="rounded-md py-1 px-2 hover:brightness-75 transition-all"
+      className="rounded-md px-2 py-1 transition-all hover:brightness-75"
       type={type}
     >
       {children}
