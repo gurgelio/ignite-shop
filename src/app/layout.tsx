@@ -1,9 +1,9 @@
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import "@/styles/globals.css";
 
-import logo from "./assets/logo.svg";
 import Image from "next/image";
+import logo from "./assets/logo.svg";
 
 export const metadata: Metadata = {
   title: "Ignite Shop",
