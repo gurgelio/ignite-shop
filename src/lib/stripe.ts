@@ -1,9 +1,9 @@
-import Stripe from 'stripe'
-import { env } from './env'
+import Stripe from "stripe";
+import { env } from "./env";
 
 export const stripe = new Stripe(env.STRIPE_PRIVATE_KEY, {
-  apiVersion: '2024-09-30.acacia',
+  apiVersion: "2024-10-28.acacia",
   appInfo: {
-    name: 'Ignite Shop'
-  }
-})
+    name: "Ignite Shop",
+  },
+});

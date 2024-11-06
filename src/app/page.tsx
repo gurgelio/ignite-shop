@@ -36,10 +36,8 @@ function Product({ product }: ProductProps) {
         className="object-cover"
       />
       <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black bg-opacity-60 p-2 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-        <strong className="text-2xl font-bold text-emerald-500">
-          {product.name}
-        </strong>
-        <span>
+        <span className="text-2xl">{product.name}</span>
+        <span className="text-emerald-500 font-bold">
           {(price.unit_amount! / 100).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
