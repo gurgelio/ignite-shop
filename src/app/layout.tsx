@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
         className={`${roboto.className} bg-zinc-900 text-zinc-100 antialiased`}
       >

@@ -1,12 +1,11 @@
 import Slider from "@/components/slider";
-import { stripe } from "@/lib/stripe";
+import { type ExpandedPriceProduct, getProducts } from "@/lib/stripe";
+import { formatPrice } from "@/lib/utils/formatPrice";
 import Image from "next/image";
-import Stripe from "stripe";
+import Link from "next/link";
 
 export default async function Home() {
-  const { data } = await stripe.products.list({
-    expand: ["data.default_price"],
-  });
+  const { data } = await getProducts();
 
   return (
     <>
@@ -20,13 +19,16 @@ export default async function Home() {
 }
 
 interface ProductProps {
-  product: Stripe.Product;
+  product: ExpandedPriceProduct;
 }
 
 function Product({ product }: ProductProps) {
-  const price = product.default_price as Stripe.Price;
   return (
-    <a className="keen-slider__slide group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4]">
+    <Link
+      className="keen-slider__slide group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4]"
+      href={`/product/${product.id}`}
+      prefetch={false}
+    >
       <Image
         src={product.images[0]}
         width={520}
@@ -37,13 +39,13 @@ function Product({ product }: ProductProps) {
       />
       <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black bg-opacity-60 p-2 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
         <span className="text-2xl">{product.name}</span>
-        <span className="text-emerald-500 font-bold">
-          {(price.unit_amount! / 100).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          })}
+        <span className="font-bold text-emerald-500">
+          {formatPrice(
+            product.default_price.unit_amount!,
+            product.default_price.currency,
+          )}
         </span>
       </footer>
-    </a>
+    </Link>
   );
 }
