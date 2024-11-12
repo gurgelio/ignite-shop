@@ -1,8 +1,8 @@
-import Slider from "@/components/slider";
 import { type ExpandedPriceProduct, getProducts } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
+import Slider from "./slider";
 
 export default async function Home() {
   const { data } = await getProducts();
@@ -40,10 +40,7 @@ function Product({ product }: ProductProps) {
       <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black bg-opacity-60 p-2 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
         <span className="text-2xl">{product.name}</span>
         <span className="font-bold text-emerald-500">
-          {formatPrice(
-            product.default_price.unit_amount!,
-            product.default_price.currency,
-          )}
+          {formatPrice(product.default_price.unit_amount!)}
         </span>
       </footer>
     </Link>
