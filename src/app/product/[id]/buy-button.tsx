@@ -21,7 +21,7 @@ export function BuyButton({ handleBuyProduct }: BuyButtonProps) {
 
   return (
     <button
-      className="mt-auto cursor-pointer rounded-lg bg-emerald-600 p-5 text-xl font-bold text-white transition-colors hover:bg-emerald-500 disabled:bg-slate-500"
+      className="mt-auto cursor-pointer rounded-lg bg-emerald-600 p-5 text-xl font-bold text-white transition-colors hover:bg-emerald-500 disabled:cursor-wait disabled:bg-emerald-700"
       onClick={wrappedAction}
       disabled={isLoading}
     >
