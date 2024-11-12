@@ -1,6 +1,7 @@
-import { getProductDetails } from "@/lib/stripe";
+import { createCheckoutSession, getProductDetails } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 interface ProductProps {
   params: Promise<{
@@ -19,6 +20,12 @@ export default async function Product({ params }: ProductProps) {
   const { id } = await params;
   const product = await getProductDetails(id);
 
+  async function handleBuyProduct() {
+    "use server";
+    const checkout = await createCheckoutSession(product.default_price.id);
+    redirect(checkout.url!);
+  }
+
   return (
     <main className="mx-auto grid max-w-6xl grid-cols-2 items-stretch gap-16">
       <div className="flex h-[656px] w-full max-w-xl items-center justify-center rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] object-cover p-1">
@@ -31,7 +38,10 @@ export default async function Product({ params }: ProductProps) {
         </span>
         <p className="mt-10 text-lg text-gray-300">{product.description}</p>
 
-        <button className="mt-auto cursor-pointer rounded-lg bg-emerald-600 p-5 text-xl font-bold text-white transition-colors hover:bg-emerald-500">
+        <button
+          className="mt-auto cursor-pointer rounded-lg bg-emerald-600 p-5 text-xl font-bold text-white transition-colors hover:bg-emerald-500"
+          onClick={handleBuyProduct}
+        >
           Comprar agora
         </button>
       </article>

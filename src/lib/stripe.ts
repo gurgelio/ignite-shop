@@ -1,3 +1,4 @@
+import 'server-only'
 import Stripe from "stripe";
 import { env } from "./env";
 
@@ -20,4 +21,13 @@ export async function getProducts() {
   return await stripe.products.list({
     expand: ['data.default_price']
   }) as Stripe.Response<Stripe.ApiList<ExpandedPriceProduct>>
+}
+
+export async function createCheckoutSession(priceId: string) {
+  return stripe.checkout.sessions.create({
+    mode: 'payment',
+    success_url: `${env.NEXT_URL}/success`,
+    cancel_url: `${env.NEXT_URL}/`,
+    line_items: [{ price: priceId, quantity: 1 }]
+  })
 }
