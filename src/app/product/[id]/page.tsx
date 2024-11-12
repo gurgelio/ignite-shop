@@ -1,4 +1,4 @@
-import { getAllProductIds, getProductDetails } from "@/lib/stripe";
+import { getProductDetails } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import Image from "next/image";
 
@@ -8,10 +8,11 @@ interface ProductProps {
   }>;
 }
 
-export const revalidate = 60 * 60 * 4; // 4 hours
+export const revalidate = 14400; // 4 hours in seconds
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
-  return await getAllProductIds().then((ids) => ids.map((id) => ({ id })));
+  return [];
 }
 
 export default async function Product({ params }: ProductProps) {
@@ -26,10 +27,7 @@ export default async function Product({ params }: ProductProps) {
       <article className="flex flex-col">
         <h1 className="text-3xl text-gray-300">{product.name}</h1>
         <span className="mt-4 block text-3xl text-emerald-400">
-          {formatPrice(
-            product.default_price.unit_amount!,
-            product.default_price.currency,
-          )}
+          {formatPrice(product.default_price.unit_amount!)}
         </span>
         <p className="mt-10 text-lg text-gray-300">{product.description}</p>
 

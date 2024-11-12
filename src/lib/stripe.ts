@@ -10,21 +10,6 @@ const stripe = new Stripe(env.STRIPE_PRIVATE_KEY, {
   },
 });
 
-export async function getAllProductIds() {
-  const ids = [];
-
-  let currentPage = await stripe.products.list({ limit: 100 });
-  ids.push(...currentPage.data.map(p => p.id));
-  while (currentPage.has_more) {
-    currentPage = await stripe.products.list({
-      limit: 100,
-      starting_after: currentPage.data.at(-1)!.id
-    })
-    ids.push(...currentPage.data.map(p => p.id))
-  }
-  return ids;
-}
-
 export async function getProductDetails(id: string) {
   return await stripe.products.retrieve(id, {
     expand: ['default_price']
