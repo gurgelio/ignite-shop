@@ -2,6 +2,7 @@ import { createCheckoutSession, getProductDetails } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { BuyButton } from "./buy-button";
 
 interface ProductProps {
   params: Promise<{
@@ -23,7 +24,7 @@ export default async function Product({ params }: ProductProps) {
   async function handleBuyProduct() {
     "use server";
     const checkout = await createCheckoutSession(product.default_price.id);
-    redirect(checkout.url!);
+    if (checkout?.url) redirect(checkout.url);
   }
 
   return (
@@ -38,12 +39,7 @@ export default async function Product({ params }: ProductProps) {
         </span>
         <p className="mt-10 text-lg text-gray-300">{product.description}</p>
 
-        <button
-          className="mt-auto cursor-pointer rounded-lg bg-emerald-600 p-5 text-xl font-bold text-white transition-colors hover:bg-emerald-500"
-          onClick={handleBuyProduct}
-        >
-          Comprar agora
-        </button>
+        <BuyButton handleBuyProduct={handleBuyProduct} />
       </article>
     </main>
   );
