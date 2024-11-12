@@ -33,11 +33,11 @@ export default async function Product({ params }: ProductProps) {
         <Image src={product.images[0]} alt="" width={576} height={656} />
       </div>
       <article className="flex flex-col">
-        <h1 className="text-3xl text-gray-300">{product.name}</h1>
+        <h1 className="text-3xl text-zinc-300">{product.name}</h1>
         <span className="mt-4 block text-3xl text-emerald-400">
           {formatPrice(product.default_price.unit_amount!)}
         </span>
-        <p className="mt-10 text-lg text-gray-300">{product.description}</p>
+        <p className="mt-10 text-lg text-zinc-300">{product.description}</p>
 
         <BuyButton handleBuyProduct={handleBuyProduct} />
       </article>
