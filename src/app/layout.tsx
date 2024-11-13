@@ -1,13 +1,25 @@
 import "@/styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
 
 import Image from "next/image";
 import logo from "./assets/logo.svg";
 
-export const metadata: Metadata = {
+export const viewport = {
+  colorScheme: "dark",
+  themeColor: "#10b981",
+} satisfies Viewport;
+
+export const metadata = {
   title: "Ignite Shop",
-};
+  applicationName: "Ignite Shop",
+  description: "",
+  keywords: ["Ignite", "Shop", "Store", "Rocketseat", "Gurgel"],
+  robots: {
+    follow: true,
+    index: true,
+  },
+} satisfies Metadata;
 
 const roboto = Roboto({
   subsets: ["latin"],

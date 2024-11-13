@@ -1,5 +1,6 @@
 import { createCheckoutSession, getProductDetails } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { BuyButton } from "./buy-button";
@@ -8,6 +9,30 @@ interface ProductProps {
   params: Promise<{
     id: string;
   }>;
+}
+
+export async function generateMetadata({ params }: ProductProps) {
+  const { id } = await params;
+  const product = await getProductDetails(id);
+
+  return {
+    title: `${product.name} | Ignite Shop`,
+    description: product.description,
+    openGraph: {
+      type: "website",
+      description: product.description ?? undefined,
+      images: [product.images[0]],
+      title: product.name,
+      siteName: "Ignite Shop",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@gurgelio",
+      title: product.name,
+      description: product.description ?? undefined,
+      images: [product.images[0]],
+    },
+  } satisfies Metadata;
 }
 
 export const revalidate = 14400; // 4 hours in seconds

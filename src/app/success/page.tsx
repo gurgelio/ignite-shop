@@ -1,4 +1,5 @@
 import { getSessionDetails } from "@/lib/stripe";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -8,6 +9,14 @@ interface SuccessProps {
     session_id?: string;
   }>;
 }
+
+export const metadata: Metadata = {
+  title: "Compra realizada | Ignite Shop",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function Success({ searchParams }: SuccessProps) {
   const { session_id } = await searchParams;

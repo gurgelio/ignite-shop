@@ -1,8 +1,13 @@
 import { type ExpandedPriceProduct, getProducts } from "@/lib/stripe";
 import { formatPrice } from "@/lib/utils/formatPrice";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "./slider";
+
+export const metadata: Metadata = {
+  title: "Home | Ignite Shop",
+};
 
 export default async function Home() {
   const { data } = await getProducts();
