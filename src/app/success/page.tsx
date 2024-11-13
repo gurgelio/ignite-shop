@@ -1,7 +1,7 @@
 import { getSessionDetails } from "@/lib/stripe";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface SuccessProps {
   searchParams: Promise<{
@@ -11,7 +11,7 @@ interface SuccessProps {
 
 export default async function Success({ searchParams }: SuccessProps) {
   const { session_id } = await searchParams;
-  if (session_id == null) notFound();
+  if (session_id == null) redirect("/");
   const { customer_details, line_items } = await getSessionDetails(session_id);
   const product = line_items.data[0].price.product;
 
